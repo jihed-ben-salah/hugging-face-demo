@@ -1,0 +1,23 @@
+  push:
+    branches: [main]
+
+  #to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+jobs:
+  sync-to-hob:
+    runs-on: ubunto-latest
+      steps:
+        - uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
+        - name: Add remote
+          env:
+            HF: ${{secrets.HF}}
+          run: git remote add space https://JihedCA:$HF@huggingface.co/spaces/JihedCA/demo
+        - name: Push to hub
+          env : 
+            HF: ${{ secrets.HF}}
+          run : git push --force https://JihedCA:$HF@huggingface.co/spaces/JihedCA/demo main
+ 
+ 
